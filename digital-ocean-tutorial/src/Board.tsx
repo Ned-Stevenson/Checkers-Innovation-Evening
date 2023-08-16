@@ -44,4 +44,7 @@ const GridContainer = styled.div`
   display: grid;
   grid-template-rows: repeat(8, fr1);
   grid-template-columns: repeat(8, fr1);
+  
+  width: 800px;
+  height: 800px;
 `

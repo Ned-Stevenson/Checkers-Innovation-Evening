@@ -4,8 +4,8 @@ export type Game = {
 }
 
 export type BoardState = {
-    playerPieces: [Piece],
-    aiPieces: [Piece]
+    playerPieces: Array<Piece>,
+    aiPieces: Array<Piece>
 }
 
 export type Piece = {
