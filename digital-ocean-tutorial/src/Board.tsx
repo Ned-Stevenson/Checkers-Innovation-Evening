@@ -1,5 +1,5 @@
-import {ReactElement} from "react";
-import {BoardState, Position} from "./model";
+import {ReactElement, useState} from "react";
+import {BoardState, Piece, Position} from "./model";
 import styled from "styled-components";
 
 type BoardProps = {
@@ -9,12 +9,21 @@ type BoardProps = {
 const squareIsBlack = ({x, y}: Position): boolean => ((x+y)%2 === 0)
 
 export const Board = ({board}: BoardProps): ReactElement => {
+    const [selectedPiece, setSelectedPiece] = useState<Piece|null>(null)
 
     const indexes = [0,1,2,3,4,5,6,7]
 
     return (
         <GridContainer>
-            {indexes.map(x => indexes.map(y => <BoardPiece key={8*x+y} x={x} y={y} />))}
+            {indexes.map(x =>
+                indexes.map(y =>
+                    <BoardPiece
+                        key={8*x+y}
+                        x={x}
+                        y={y}
+                    />
+                )
+            )}
         </GridContainer>
     )
 }
