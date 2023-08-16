@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 type BoardProps = {
   board: BoardState;
+  setBoard: (newBoard: BoardState) => void;
 };
 
 type PieceAlignment = "Player" | "AI" | null;
@@ -14,10 +15,12 @@ const isPieceAtPosition = (piece: Piece, position: Position): boolean =>
   piece.position.x === position.x && piece.position.y === position.y;
 
 const isValidMove = (
-  from: Position,
+  piece: Piece,
   to: Position,
   board: BoardState,
 ): boolean => {
+  const from = piece.position; // Todo uncrowned pieces cannot move backwards
+
   if (to.x < 0 || to.x >= 8) return false;
   if (to.y < 0 || to.y >= 8) return false;
   if (squareIsBlack(to)) return false;
@@ -48,10 +51,28 @@ const isPieceAt = (board: BoardState, position: Position): PieceAlignment => {
   return null;
 };
 
+
 export const indexes = [0, 1, 2, 3, 4, 5, 6, 7];
 
-export const Board = ({ board }: BoardProps): ReactElement => {
+export const Board = ({ board, setBoard }: BoardProps): ReactElement => {
   const [selectedPiece, setSelectedPiece] = useState<Piece | null>(null);
+
+  const doMove = (piece: Piece, to: Position, board: BoardState) => {
+    const playerPieceIndex = board.playerPieces.indexOf(piece);
+    if (playerPieceIndex !== -1) {
+      const newPlayerPieces = board.playerPieces.slice(0, playerPieceIndex).concat(board.playerPieces.slice(playerPieceIndex + 1))
+      newPlayerPieces.unshift({...piece, position: to})
+      const newBoard = {...board, playerPieces: newPlayerPieces}
+      setBoard(newBoard);
+    } else {
+      const aiPieceIndex = board.aiPieces.indexOf(piece);
+      const newAiPieces = board.aiPieces.slice(0, aiPieceIndex).concat(board.aiPieces.slice(aiPieceIndex + 1))
+      newAiPieces.unshift({...piece, position: to})
+      const newBoard = {...board, aiPieces: newAiPieces}
+      setBoard(newBoard);
+    }
+    setSelectedPiece(null);
+  }
 
   return (
     <GridContainer>
@@ -67,14 +88,16 @@ export const Board = ({ board }: BoardProps): ReactElement => {
               if (piece) setSelectedPiece(piece);
               else if (
                 selectedPiece &&
-                isValidMove(selectedPiece.position, { x, y }, board)
+                isValidMove(selectedPiece, { x, y }, board)
               ) {
+                doMove(selectedPiece, {x, y}, board)
               }
+              else setSelectedPiece(null)
             }}
             highlight={
               selectedPiece === null
                 ? false
-                : isValidMove(selectedPiece.position, { x, y }, board)
+                : isValidMove(selectedPiece, { x, y }, board)
             }
           >
             <PieceIcon colour={isPieceAt(board, { x, y })} />

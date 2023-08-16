@@ -17,7 +17,5 @@ export const App = () => {
   };
   const [board, setBoard] = useState(startingBoard);
 
-  return <Board board={board} />;
+  return <Board board={board} setBoard={setBoard} />;
 };
-
-export default App;
