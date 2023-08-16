@@ -1,46 +1,42 @@
-﻿import { find_available_moves, check_moves} from "./MinimaxAlgorithm";
-
+﻿import { find_available_moves, check_moves } from "./MinimaxAlgorithm";
 
 class GameHelper {
+  set parent(value) {
+    this._parent = value;
+  }
+  get value() {
+    return this._value;
+  }
+  get parent() {
+    return this._parent;
+  }
+  get move() {
+    return this._move;
+  }
+  get board(): number[][] {
+    return this._board;
+  }
 
-    set parent(value) {
-        this._parent = value;
-    }
-    get value() {
-        return this._value;
-    }
-    get parent() {
-        return this._parent;
-    }
-    get move() {
-        return this._move;
-    }
-    get board(): number[][] {
-        return this._board;
-    }
+  private _board: number[][];
+  private _move: null | number[];
+  private _parent;
+  private _value;
 
-    private _board: number[][]
-    private _move: null | number[]
-    private _parent
-    private _value
+  constructor(board, move, parent, value) {
+    this._board = board;
+    this._move = null;
+    this._value = null;
+    this._parent = null;
+  }
 
-    constructor(board, move, parent, value) {
-        this._board = board
-        this._move = null
-        this._value = null
-        this._parent = null
+  get_children = (minimizing_player) => {
+    const current_state = structuredClone(this.board);
+    const available_moves = [];
+    const children_states = [];
+    if (minimizing_player) {
     }
-
-    get_children = (minimizing_player) => {
-        const current_state = structuredClone(this.board)
-        const available_moves = []
-        const children_states = []
-        if(minimizing_player) {
-        }
-    }
-
+  };
 }
-
 
 /*
 

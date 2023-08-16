@@ -6,14 +6,14 @@ import reportWebVitals from "./reportWebVitals";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
-    throw new Error("No root element found");
+  throw new Error("No root element found");
 }
 
 const reactRoot = ReactDOM.createRoot(rootElement);
 reactRoot.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
