@@ -49,9 +49,6 @@ const BoardTile = styled.button<Position>`
 
   background-color: ${props => squareIsBlack(props) ? "#000" : "#fff"};
   
-  align-content: center;
-  font-size: xx-large;
-  
   padding: 0;
   border: 0;
 `
