@@ -10,6 +10,7 @@ export type BoardState = {
 
 export type Piece = {
   isCrowned: boolean;
+  isPlayerPiece: boolean;
   position: Position;
 };
 
